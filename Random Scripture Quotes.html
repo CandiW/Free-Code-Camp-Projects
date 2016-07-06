@@ -1,0 +1,101 @@
+<!DOCTYPE>
+<style>
+body {
+  background: url('http://gdurl.com/amDo');
+  font-family: 'Slabo 27px', serif;
+  text-align: center;
+  margin: 0px 0px 50px 0px;
+}
+h1 {
+  color: #4B4C7A;
+  font-size: 50px;
+  margin: 50px 0px 50px 0px;
+}
+h3 {
+  color: #4B4C7A;
+  font-size: 30px;
+  margin: 0px 50px 50px 50px;
+}
+p {
+  color: #4B4C7A;
+  font-family: 'Slabo 27px', serif;
+  font-size: 25px;
+  padding: 20px;
+}
+.lavender-background {
+  background-color: #FFD4E9;
+  min-width: 200px;
+  max-width: 600px;
+  min-height: 200px;
+  max-height: 500px;
+  text-align: center;
+}
+.purple-border {
+  border-color: #C545C5;
+  border-width: 8px;
+  border-style: solid;
+  border-radius: 15px;
+}
+button {
+  color: #FFD4E9;
+  background-color: #A03271;
+  margin: 20px 10px 20px 10px;
+}
+a {
+  color: #FFD4E9;
+  background-color: #A03271;
+  margin: 20px 10px 20px 10px;
+}
+</style>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link href='https://fonts.googleapis.com/css?family=Slabo+27px' rel='stylesheet' type='text/css'>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+<script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.0.0.min.js" integrity="sha256-JmvOoLtYsmqlsWxa7mDSLMwa6dZ9rrIdtrrVYRnDRH0=" crossorigin="anonymous"></script>        
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+
+
+<h1 class='text text-center'>Scripture Verse Quotes</h1>
+  <h3 class='text text-center'>This is a collection of a few of my favorite Bible verses.   Feel free to share your favorite verse from this collection on Twitter! </h3>
+</head>
+<body>
+  <div class='container lavender-background purple-border'>
+    <p>Click on 'New Verse' to see a new quote!</p>
+  </div>
+
+  <button id='new-verse' class='btn btn-lg' type='button'>New Verse</button>
+  <a id='twitter' class="btn btn-lg tweetable"
+  href="https://twitter.com/intent/tweet?"
+  target='_blank'><i class="fa fa-twitter"></i>
+Tweet</a>
+  <script type="text/javascript" src="//platform.twitter.com/widgets.js"></script>
+  <script type="text/javascript" src="http://omarish.com/tweetable/tweetable.js"></script>
+</body>
+
+
+<script>
+  var quotes = ['Come to me, all you who are weary and burdened, and I will give you rest. - Matthew 11:28',
+   			'Let your eyes look straight ahead...fix your gaze directly before you. Give careful thought to the paths for your feet and be steadfast in all your ways. - Proverbs 4:25,26',
+            'The Lord is my shepherd, I lack nothing. He makes me lie down in green pastures, he leads me beside quiet waters. - Psalm 23:1,2',
+            'I have strength for all things in Christ Who empowers me... - Philippians 4:13',
+            'The Lord is my light and my salvation - whom shall I fear? The Lord is the stronghold of my life - of whom shall I be afraid? - Psalm 27:1',
+            'You have searched me, Lord, and you know me. You know when I sit and when I rise. You perceive my thoughts from afar. - Psalm 139:1,2',
+              'In the beginning was the Word, and the Word was with God, and the Word was God. - John 1:1' ];
+
+$(document).ready(function() {  
+  var newQuote;
+  $('#new-verse').on('click', function(){ 
+    newQuote = quotes[Math.floor(Math.random() * quotes.length)];
+ $('p').append(newQuote).text(newQuote);
+ });
+  $('#twitter').on('click',function(){
+    newQuote=$('p').text();
+
+ window.open('http://twitter.com/intent/tweet?text='+ newQuote +'');
+  })
+});
+  </script>
+  </html>
