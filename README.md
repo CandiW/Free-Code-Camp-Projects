@@ -1,6 +1,6 @@
 # Free-Code-Camp-Projects
 
-Here you'll find my projects I built for Free Code Camp.  These projects were built in CodePen.  (no jQuery or Bootstrap libraries included here)  My first project was my Portfolio Page and you can find it here at http://studio27devs.github.io - for the rest of my projects, you will find here in this repository and the links below.
+Here you'll find my projects I built for Free Code Camp.  These projects were built in CodePen.  (no jQuery or Bootstrap libraries included here)  My first project was my Portfolio Page and you can find it here at http://studio27devs.github.io - for the rest of my projects, you will find here in this repository and the links below.  I don't plan to change or update any of my projects, as I like to go back and look at my code to see how far I've come :)
 
 
 --- For Front-End Development Certificate ---
