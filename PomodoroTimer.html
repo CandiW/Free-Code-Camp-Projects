@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html>
+
+<style>
+
+#main {
+  background-color: #118DF0;
+  text-align: center;
+  font-family: 'Shadows Into Light', cursive;
+}
+#s, #b {
+  color: white;
+  font-size: 30px;
+}
+div {
+  color: #4F1567;
+  font-size: 30px;
+  background: radial-gradient(white,#ffc9d1);
+  min-width: 200px;
+  min-height: 200px;
+  max-width: 400px;
+  max-height: 300px;
+  border-color: #4F1567;
+  border-style: solid;
+  border-width: 8px;
+  border-radius: 10px;
+}
+h1 {
+  color: #4F1567;
+  font-size: 60px;
+}
+
+h2 {
+  color: #ff8195;
+  font-size: 45px;
+}
+button {
+  color: white;
+  background-color: #ff8195;
+}
+.btn-circle {
+  width: 30px;
+  height: 30px;
+  padding: 0;
+  line-height: 1;
+  font-size: 30px;
+  border-radius: 25px;
+  margin: 15px;
+}
+.timer{
+  color: #ff8195;
+  font-size: 65px;
+  margin: 50px 50px 50px 50px;
+}
+#sTime, #bTime {
+  font-size: 30px;
+  margin: 20px;
+}
+input {
+  color: #ff8195;
+  background: radial-gradient(white,#ffc9d1);
+  border-color: #0A5490;
+}
+@keyframes backgroundColor {
+  0% {
+   background-color: #118DF0;   
+  }
+  25% {
+    background-color: #FBFFA3;
+  }
+  50% {
+    background-color: #FF4B68;
+  }
+  75% {
+    background-color: #004182;
+  }
+  100% {
+    background-color: #70baf6;
+  }
+}
+.animation {
+  width: 100%;
+  height: 100%;
+  -webkit-animation: backgroundColor 15s infinite;
+}
+
+</style>
+
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+<link href='https://fonts.googleapis.com/css?family=Shadows+Into+Light' rel='stylesheet' type='text/css'>
+</head>
+
+<body id = 'main' class='animation'>
+  <h1 class='text-center'>Free Code Camp</h1>
+  <h2 class='text-center'>Pomodoro Timer</h2>
+  <p id='s'>Session</p>
+<button id='sMinus' class='btn btn-circle text-center'>-</button>
+<input id='sTime' value='25' class='text-center'></input>
+  <button id='sPlus' class='btn btn-circle text-center'>+</button>
+<p id='b'>Break</p>
+<button id='bMinus' class='btn btn-circle text-center'>-</button>
+<input id='bTime' value='5' class='text-center'></input>
+  <button id='bPlus' class='btn btn-circle text-center'>+</button>
+
+
+<div class='container'>
+  <p id='status'>Session</p>
+  <span id='countdown' class='timer'></span>
+<p></p>
+<button id='start' class='btn btn-lg text-center'>Start</button>
+<button id='stop' class='btn btn-lg text-center'>Stop</button>
+<button id='resume' class='btn btn-lg text-center'>Resume</button>
+<button id='reset' class='btn btn-lg text-center'>Reset</button>  
+<p></p>
+</div>
+</body>
+
+
+<script>
+
+$(document).ready(function() {
+  $('#main').removeClass('animation');
+var value = parseInt(document.getElementById('sTime').value, 10);
+  var paused = false;
+function sessionPlus() {
+    value++;
+    document.getElementById('sTime').value = value;
+};
+ function sessionMinus() { 
+  value--;
+  document.getElementById('sTime').value = value;
+};
+  $('#sPlus').click(function() {
+    sessionPlus();
+  });
+  $('#sMinus').click(function() {
+    sessionMinus();
+  });  
+ 
+  var value2 = parseInt(document.getElementById('bTime').value, 10);
+  var paused = false;
+function breakPlus() {
+    value2++;
+    document.getElementById('bTime').value = value2;
+};
+ function breakMinus() { 
+  value2--;
+  document.getElementById('bTime').value = value2;
+};
+  $('#bPlus').click(function() {
+    breakPlus();
+  });
+  $('#bMinus').click(function() {
+    breakMinus();
+  }); 
+
+  
+$('#start').click(function() {
+  paused = false;
+  $('#main').addClass('animation');
+  //session timer
+if($('#status').text() == 'Session'){
+var minutes = value;
+var seconds = minutes * 60;
+var remainingSeconds;
+var remainingMinutes;
+var countdownTimer = setInterval(timer,1000); 
+
+function timer() {
+        remainingMinutes = Math.floor(seconds / 60);
+        remainingSeconds = seconds % 60;
+        if(remainingSeconds < 10) { remainingSeconds = "0" + remainingSeconds; }
+          seconds--;
+        document.getElementById("countdown").innerHTML = remainingMinutes + ":" + remainingSeconds;
+        if(seconds == -1) { setInterval(timer,1000); }
+     if (seconds == 0){
+     clearInterval(countdownTimer);
+     paused = true;
+     $('#main').removeClass('animation');
+       document.getElementById('status').innerHTML = 'Break';
+       document.getElementById('countdown').innerHTML = value2 + ':' + '00';
+       var sound = new Audio('http://gdurl.com/gfX3');
+       sound.play();
+   }
+}
+}
+ 
+//break timer
+if ($('#status').text() == 'Break'){
+var minutes2 = value2;
+var seconds2 = minutes2 * 60;
+var remainingSeconds2;
+var remainingMinutes2;
+
+var countdownTimer2 = setInterval(timer2,1000);
+  
+document.getElementById('status').innerHTML = 'Break';
+
+function timer2 (){ 
+        remainingMinutes2 = Math.floor(seconds2 / 60);
+        remainingSeconds2 = seconds2 % 60;
+        if(remainingSeconds2 < 10) { remainingSeconds2 = "0" + remainingSeconds2; }
+          seconds2--;
+        document.getElementById("countdown").innerHTML = remainingMinutes2 + ":" + remainingSeconds2;
+        if(seconds2 == -1) { setInterval(timer2,1000); }
+     if (seconds2 == 0){
+     clearInterval(countdownTimer2);
+     paused = true;
+     $('#main').removeClass('animation');
+       document.getElementById('status').innerHTML = 'Session';
+       document.getElementById('countdown').innerHTML = value + ':' + '00';
+       var sound = new Audio('http://gdurl.com/JqK4');
+       sound.play();
+   }
+}
+}
+  $('#stop').click(function() {
+    paused = true;
+    if($('#status').text() == 'Session') {
+      clearInterval(countdownTimer);
+    $('#main').removeClass('animation');
+    }
+    if ($('#status').text() == 'Break'){
+      clearInterval(countdownTimer2);
+      $('#main').removeClass('animation');
+    }
+});
+  $('#resume').click(function() {
+    paused = false;
+    if($('#status').text() == 'Session'){
+      countdownTimer = setInterval(timer,1000);
+    $('#main').addClass('animation');
+    }
+     if ($('#status').text() == 'Break'){
+       countdownTimer2 = setInterval(timer2,1000);
+    $('#main').addClass('animation');
+    }
+  });
+  $('#reset').click(function() {
+    paused = true;
+    document.getElementById('status').innerHTML = 'Session';
+  });
+});
+});
+
+    </script>
+
+
+</html>

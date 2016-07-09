@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+
+<html>
+
+<style>
+
+body {
+  font-family: 'Play', sans-serif;
+  text-align: center;
+  background-color: #F6A2D4;
+}
+h1 {
+  color: #6990E4;
+  font-size: 45px;
+}
+h2 {
+  color: #5C4B77;
+}
+.purple-box {
+  background-color: #B145AD;
+  height: 525px;
+  width: 375px;
+  border-radius: 20px;
+  margin: 0 auto;
+  padding: 25px;
+  box-shadow: 7px 7px 7px #9f3e9b;
+}
+.screen {
+  background-color: #2E3837;
+  height: 75px;
+  width: 350px;
+  margin: 15px 0px 15px 15px;
+  border-radius: 10px;
+  box-shadow: 3px 3px 3px #424b4b;
+  font-family: 'Play', sans-serif;
+  font-size: 60px;
+  color: #bcbeb4;
+  text-align: right;
+}
+.btn {
+  font-family: 'Play', sans-serif;
+  font-size: 25px;
+  width: 70px;
+  height: 70px;
+  box-shadow:  3px 4px 3px #F6A2D4;
+  background: linear-gradient(to right, #bcbeb4, white, white, #bcbeb4);
+  border-radius: 15px;
+}
+#equals {
+  width: 140px;
+}
+#ac {
+  width: 140px;
+}
+
+</style>
+
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link href='https://fonts.googleapis.com/css?family=Play' rel='stylesheet' type='text/css'>
+</head>
+
+<body>
+  <h1 class='text-center'>Free Code Camp</h1>
+  <h2 class='text-center'>Javascript Calculator</h2>
+  <div class='container purple-box'>
+    <div id='screen' class='screen'></div>
+    <button id='ac' class='btn' value='0'>AC</button>
+    <button id='percent' class='btn' value='%'>%</button>
+    <button id='divide' class='btn' value='/'>/</button>
+    <p></p>
+    <button id='seven' class='btn' value='7'>7</button>
+    <button id='eight' class='btn' value='8'>8</button>
+    <button id='nine' class='btn' value='9'>9</button>
+    <button id='multiply' class='btn' value='*'>*</button>
+    <p></p>
+    <button id='four' class='btn' value='4'>4</button>
+    <button id='five' class='btn' value='5'>5</button>
+    <button id='six' class='btn' value ='6'>6</button>
+    <button id='minus' class='btn' value='-'>-</button>
+    <p></p>
+    <button id='one' class='btn' value='1'>1</button>
+    <button id='two' class='btn' value='2'>2</button>
+    <button id='three' class='btn' value='3'>3</button>
+    <button id='plus' class='btn' value='+'>+</button>
+    <p></p>
+    <button id='zero' class='btn' value='0'>0</button>
+    <button id='decimal' class='btn' value='.'>.</button>
+    <button id='equals' class='btn' value='='>=</button>
+  </div>
+</body>
+
+
+<script>
+    $(document).ready(function(){
+var value;
+var screen = document.getElementById('screen');  
+var display = '';
+var first = '';
+var second = '';
+var decimal = '';
+var operator = '';
+var total = '';
+
+//AC button function
+  function ac () {
+    first = '';
+    second = '';
+    operator = '';
+    total = '';
+    document.getElementById('screen').innerHTML = '0';
+  }
+//number button function  
+  function number () {
+    display = '';
+    if (operator == ''){
+      first = first + value;
+      document.getElementById('screen').innerHTML = first;
+    }
+    else {
+      second = second + value;
+      display = document.getElementById('screen').innerHTML;
+      document.getElementById('screen').innerHTML = first + '' + operator + '' + second;
+    }
+    if(operator == ''){
+      decimal = decimal + value;
+    }
+    display = document.getElementById('screen').innerHTML;
+    if(String(display).length > 10){
+      document.getElementById('screen').innerHTML = 'Error';
+    }
+  }
+  //operator function
+  function op (){
+    display = '';
+    operator = value;
+    if(first != '' && second != ''){ result(); }
+    display = document.getElementById('screen').innerHTML;
+    document.getElementById('screen').innerHTML = display + '' + operator + '';
+  }
+  //total function
+  function result(){
+    var string;
+    if(first != '' && second != '' && operator != ''){
+      string = document.getElementById('screen').innerHTML;
+      total = eval(string);
+      document.getElementById('screen').innerHTML = total;
+      first = total;
+      second = '';
+      operator = '';
+    }
+    if(String(string).length > 10){
+      document.getElementById('screen').innerHTML = String(string).substr(0,8) + '\u221e';
+    }
+    if(operator === '+'){
+      total = first + second;
+    }
+    if(operator === '-'){
+      total = first - second;
+    }
+    if(operator === '*'){
+      total = first * second;
+    }
+    if(operator === '/'){
+      total = first / second;
+    }
+  }
+//percent function
+  function percent() {
+    var perc = second / 100;
+    second = first * perc;
+    total = first + '' + operator + '' + second;
+
+    document.getElementById('screen').innerHTML = total;
+  }
+
+//button click functions
+  $('#seven').click(function() {
+    document.getElementById('screen').innerHTML = '7';
+    value = $('#seven').text();
+    number();
+  });
+  $('#eight').click(function() {
+    document.getElementById('screen').innerHTML = '8';
+    value = $('#eight').text();
+    number();
+  });
+  $('#nine').click(function() {
+    document.getElementById('screen').innerHTML = '9';
+    value = $('#nine').text();
+    number();
+  });
+  $('#four').click(function() {
+    document.getElementById('screen').innerHTML = '4';
+    value = $('#four').text();
+    number();
+  });
+  $('#five').click(function() {
+    document.getElementById('screen').innerHTML = '5';
+    value = $('#five').text();
+    number();
+  });
+  $('#six').click(function() {
+    document.getElementById('screen').innerHTML = '6';
+    value = $('#six').text();
+    number();
+  });
+  $('#one').click(function() {
+    document.getElementById('screen').innerHTML = '1';
+    value = $('#one').text();
+    number();
+  });
+  $('#two').click(function() {
+    document.getElementById('screen').innerHTML = '2';
+    value = $('#two').text();
+     number();
+  });
+  $('#three').click(function() {
+    document.getElementById('screen').innerHTML = '3';
+    value = $('#three').text();
+    number();
+  });
+  $('#zero').click(function() {
+    document.getElementById('screen').innerHTML = '0';
+    value = $('#zero').text();
+    number();
+  });
+    $('#ac').click(function() {
+      ac();
+  });
+  $('#percent').click(function() {
+        percent();
+  });
+  $('#divide').click(function() {
+    value = $('#divide').text();
+    result();
+    op();
+  });
+  $('#multiply').click(function() {
+    value = $('#multiply').text();
+    result();
+    op();
+  });
+  $('#minus').click(function() {
+    value = $('#minus').text();
+    result();
+    op();
+  });
+  $('#plus').click(function() {
+    value = $('#plus').text();
+    result();
+    op();
+  });
+  $('#decimal').click(function() {
+    value = $('#decimal').text();
+    number();
+  });
+  $('#equals').click(function() {
+    result();
+  });
+  
+  //keypress button clicks
+$(document).keypress(function(event){
+  var keyCode = event.which || event.keyCode;
+  switch (keyCode) {
+    case 48 || 96: $('#zero').click();
+      break;
+    case 49 || 97: $('#one').click();
+      break;
+    case 50 || 98: $('#two').click();
+      break;
+    case 51 || 99: $('#three').click();
+      break;
+    case 52 || 100: $('#four').click();
+      break;
+    case 53 || 101: $('#five').click();
+      break;
+    case 54 || 102: $('#six').click();
+      break;
+    case 55 || 103: $('#seven').click();
+      break;
+    case 56 || 104: $('#eight').click();
+      break;
+    case 57 || 105: $('#nine').click();
+      break;
+  }
+});
+});
+</script>
+
+</html>
