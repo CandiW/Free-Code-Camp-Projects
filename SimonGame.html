@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html>
+<style>
+
+body {
+  background-color: #497285;
+  font-family: 'Open Sans', sans-serif;
+}
+h1 {
+  font-family: 'Open Sans', sans-serif;
+}
+h3 {
+  font-size: 30px;
+  font-family: 'Open Sans', sans-serif;
+  margin-top: 20px;
+  margin-bottom: 10px;
+}
+.score-box {
+  color: white;
+  background-color: black;
+  height: 50px;
+  width: 50px;
+  border-radius: 15px;
+  font-size: 20px;
+  margin-top: 15px;
+  margin-bottom: 5px;
+  padding: 5px;
+  border-color: #363540;
+  border-style: solid;
+  border-width: 5px;
+}
+.gray-box {
+  background-color: #363540;
+  border-radius: 100px;
+  height: 600px;
+  width: 500px;
+  box-shadow: 7px 7px 7px black;
+}
+.white-center {
+  background-color: white;
+  height: 250px;
+  width: 250px;
+  border-radius: 150px;
+}
+.green {
+  margin-right: 50px;
+  margin-top: 40px;
+  background-color: rgba(0,128,0,1);
+  height: 150px;
+  width: 150px;
+  border-radius: 125px;
+  -webkit-outline: none;        
+  -moz-outline: none;
+  -ms-outline: none;
+  -o-outline: none;
+  outline: none;
+
+}
+.red {
+  margin-left: 50px;
+  margin-top: 40px;
+  background-color: rgba(255,0,0,1);
+  height: 150px;
+  width: 150px;
+  border-radius: 125px;
+  -webkit-outline: none;        
+  -moz-outline: none;
+  -ms-outline: none;
+  -o-outline: none;
+  outline: none;
+
+  }
+.yellow {
+  margin-right: 50px;
+  margin-bottom: 20px;
+  background-color: rgba(255,255,0,1);
+  height: 150px;
+  width: 150px;
+  border-radius: 125px;
+  -webkit-outline: none;        
+  -moz-outline: none;
+  -ms-outline: none;
+  -o-outline: none;
+  outline: none;
+
+}
+.blue {
+  margin-left: 50px;
+  margin-bottom: 20px;
+  background-color: rgba(0,0,255,1);
+  height: 150px;
+  width: 150px;
+  border-radius: 125px;
+  -webkit-outline: none;        
+  -moz-outline: none;
+  -ms-outline: none;
+  -o-outline: none;
+  outline: none;
+
+  }
+
+.btn-toggle{
+  padding: 0px;
+  height: 4rem;
+  width: 8rem;
+  position: relative;
+  border-radius: 5rem;
+  overflow: hidden;
+  
+  background: rgb(159, 161, 163);
+  border: 1px solid rgba(0,0,0,0);
+  
+  outline:none!important;
+}
+
+.btn-toggle.btn-toggle-on{
+  background:#428bca;
+}
+
+.btn-toggle:hover span{
+  background:white;
+}
+
+.btn-toggle span.on{
+  display: none;
+}
+
+.btn-toggle span.off{
+  display: inline-block;
+}
+
+.btn-toggle.btn-toggle-on span.on{
+  display: inline-block;
+}
+
+.btn-toggle.btn-toggle-on span.off{
+  display: none;
+}
+
+.btn-toggle span{
+  border-radius: 5rem;
+  text-align:center;
+  vertical-align: middle;
+  line-height: 3.8rem;
+  display: inline-block;
+  position: absolute;
+  width: 50%;
+  height: 100%;
+  left: 0px;
+  top: 0px;
+  background: rgba(238, 238, 238, 1);
+  color: rgba(0,0,0,.7);
+  font-weight: 700
+}
+
+.btn-toggle .on{
+  right:0;
+  left:auto;
+}
+.light-up-green {
+  background-color: #66b266;
+}
+.light-up-yellow {
+  background-color: #ffff66;
+}
+.light-up-red {
+  background-color: #ff6666;
+}
+.light-up-blue {
+  background-color: #6666ff;
+}
+
+    </style>
+
+<head>
+  <link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+</head>
+<audio id='blueSound' src='https://s3.amazonaws.com/freecodecamp/simonSound1.mp3' preload='auto'></audio>
+  <audio id='greenSound' src='https://s3.amazonaws.com/freecodecamp/simonSound2.mp3' preload='auto'></audio>
+  <audio id='redSound' src='https://s3.amazonaws.com/freecodecamp/simonSound3.mp3' preload='auto'></audio>
+  <audio id='yellowSound' src='https://s3.amazonaws.com/freecodecamp/simonSound4.mp3' preload='auto'></audio>
+<body class='text-center'>
+  <h1 class='text-center'>Free Code Camp Simon Game</h1>
+  <div class='container-fluid gray-box'>
+    <button id='green' class='green'></button>
+    <button id='red' class='red'></button>
+    <div class='container-fluid white-center'>
+      <h3 class='text-center'>Simon <i class="fa fa-registered"></i>
+</h3>
+      <button id='onoff' class="btn btn-toggle">
+  <span class="off">off</span>
+  <span class="on">on</span>
+ </button>
+
+      <button id='start' class='btn btn-danger'>Start</button>
+      <button id='strict' class='btn btn-warning'>Strict</button>
+      <div id='count' class='container-fluid score-box'>--</div>
+      <h4>Ready?</h4>
+      <button id='reset' class='btn btn-primary'>Reset</button>
+      </div>
+    <button id='yellow' class='yellow'></button>
+    <button id='blue' class='blue'></button>
+  </div>
+</body>
+
+
+<script>
+
+$(document).ready(function() {
+  //global variables for entire game
+  var count = 0;
+  var mode = false;
+  var computerClicks = [];
+  var userClicks = [];
+  var blue = $('#blue');
+  var red = $('#red');
+  var green = $('#green');
+  var yellow = $('#yellow');
+  
+  function removeClasses() {
+    $('#blue,#green,#red,#yellow').removeClass('animated pulse');
+    $('#blue').removeClass('light-up-blue');
+    $('#green').removeClass('light-up-green');
+    $('#red').removeClass('light-up-red');
+    $('#yellow').removeClass('light-up-yellow');
+  }
+
+  function playSounds(id) {
+    if (id == blue || id == 1) {
+      document.getElementById('blueSound').play();
+      $('#blue').addClass('animated pulse');
+      $('#blue').addClass('light-up-blue');
+      setTimeout(removeClasses, 500);
+    }
+    if (id == green || id == 2) {
+      document.getElementById('greenSound').play();
+      $('#green').addClass('animated pulse');
+      $('#green').addClass('light-up-green');
+      setTimeout(removeClasses, 500);
+    }
+    if (id == red || id == 3) {
+      document.getElementById('redSound').play();
+      $('#red').addClass('animated pulse');
+      $('#red').addClass('light-up-red');
+      setTimeout(removeClasses, 500);
+    }
+    if (id == yellow || id == 4) {
+      document.getElementById('yellowSound').play();
+      $('#yellow').addClass('animated pulse');
+      $('#yellow').addClass('light-up-yellow');
+      setTimeout(removeClasses, 500);
+    }
+  }
+
+  function blueButton() {
+    playSounds(blue);
+    userClicks.push(1);
+    if(mode == false){
+      normalMode();
+    }
+    if(mode == true){
+      strictMode();
+    }
+  }
+
+  function greenButton() {
+    playSounds(green);
+    userClicks.push(2);
+    if(mode == false){
+      normalMode();
+    }
+    if(mode == true){
+      strictMode();
+    }
+  }
+
+  function yellowButton() {
+    playSounds(yellow);
+    userClicks.push(4);
+    if(mode == false){
+      normalMode();
+    }
+    if(mode == true){
+      strictMode();
+    }
+  }
+
+  function redButton() {
+    playSounds(red);
+    userClicks.push(3);
+    if(mode == false){
+      normalMode();
+    }
+    if(mode == true){
+      strictMode();
+    }
+  }
+
+  //computer sequence - get randomly, add one each loop, push into array, check moves() and checkWin() functions
+  function randomSequence() {
+    var getSequence = Math.floor((Math.random() * 4) + 1);
+    computerClicks.push(getSequence);
+    if(mode == false){
+      normalMode();
+    }
+    if(mode == true){
+      strictMode();
+    }
+    removeClasses();
+  }
+  //what to do with each item in computerClicks array
+  function moves() {
+    if(mode == true || mode == false){
+    var i = -1;
+    var sounds = setInterval(function() {
+      i++;
+      var item = computerClicks[i];
+      if (item == 1) {
+        playSounds(1);
+      }
+      if (item == 2) {
+        playSounds(2);
+      }
+      if (item == 3) {
+        playSounds(3);
+      }
+      if (item == 4) {
+        playSounds(4);
+      }
+      if (i >= computerClicks.length) {
+        clearInterval(sounds);
+      }
+    }, 1000);
+    }
+  }
+
+  function rounds() {
+    if (computerClicks.length == 1) {
+      count = 1;
+      $('#count').text(count);
+    }
+    if (computerClicks.length == 2) {
+      count = 2;
+      $('#count').text(count);
+    }
+    if (computerClicks.length == 3) {
+      count = 3;
+      $('#count').text(count);
+    }
+    if (computerClicks.length == 4) {
+      count = 4;
+      $('#count').text(count);
+    }
+    if (computerClicks.length == 5) {
+      count = 5;
+      $('#count').text(count);
+    }
+    if (computerClicks.length == 6) {
+      count = 6;
+      $('#count').text(count);
+    }
+    if (computerClicks.length == 7) {
+      count = 7;
+      $('#count').text(count);
+    }
+    if (computerClicks.length == 8) {
+      count = 8;
+      $('#count').text(count);
+    }
+    if (computerClicks.length == 9) {
+      count = 9;
+      $('#count').text(count);
+    }
+    if (computerClicks.length == 10) {
+      count = 10;
+      $('#count').text(count);
+    }
+    if (computerClicks.length == 11) {
+      count = 11;
+      $('#count').text(count);
+    }
+    if (computerClicks.length == 12) {
+      count = 12;
+      $('#count').text(count);
+    }
+    if (computerClicks.length == 13) {
+      count = 13;
+      $('#count').text(count);
+    }
+    if (computerClicks.length == 14) {
+      count = 14;
+      $('#count').text(count);
+    }
+    if (computerClicks.length == 15) {
+      count = 15;
+      $('#count').text(count);
+    }
+    if (computerClicks.length == 16) {
+      count = 16;
+      $('#count').text(count);
+    }
+    if (computerClicks.length == 17) {
+      count = 17;
+      $('#count').text(count);
+    }
+    if (computerClicks.length == 18) {
+      count = 18;
+      $('#count').text(count);
+    }
+    if (computerClicks.length == 19) {
+      count = 19;
+      $('#count').text(count);
+    }
+    if (computerClicks.length == 20) {
+      count = 20;
+      $('#count').text(count);
+    }
+    if (userClicks.length == 20) {
+      reset();
+    }
+  }
+  //check for win
+  function normalMode() {
+    if(computerClicks.length == 1){
+      moves();
+    }    
+    if (userClicks.length == computerClicks.length) {
+      var computer = computerClicks.join('');
+      var user = userClicks.join('');
+
+      if (computer == user && mode == false) {
+        mode = false;
+        rounds();
+        moves();
+        userClicks = [];
+        setTimeout(randomSequence, 2000);
+        $('#count').removeClass('animated flash');
+        $('h4').text("Keep going!");
+      }
+      if (computer != user && mode == false) {
+        mode = false;
+        moves();
+        $('#count').addClass('animated flash');
+        $('h4').text('Try again...');
+        userClicks = [];
+      }
+      if (computer == user && mode == false && computerClicks.length == 20 && userClicks.length == 20) {
+        $('h4').text("You Win!");
+        setTimeout(reset,5000);
+      }
+    }
+  }
+  function strictMode(){
+    if(computerClicks.length == 1){
+      moves();
+    }    
+    if (userClicks.length == computerClicks.length) {
+      var computer = computerClicks.join('');
+      var user = userClicks.join('');
+    if (computer == user && mode == true) {
+        mode = true;
+        rounds();
+        moves();
+        userClicks = [];
+        setTimeout(randomSequence, 2000);
+        $('#count').removeClass('animated flash');
+        $('h4').text("Keep going!");
+      }
+      if (computer != user && mode == true) {
+        mode = true;
+        $('#count').addClass('animated flash');
+        $('h4').text('Sorry...Game Over.');
+        reset();
+        setTimeout(randomSequence, 3000);
+      }
+    if (computer == user && mode == true && computerClicks.length == 20 && userClicks.length == 20) {
+        $('h4').text("You Win!");
+        setTimeout(reset,5000);
+      }
+    }
+  }
+  function reset() {
+    count = 0;
+    $('#count').text('--');
+    computerClicks = [];
+    userClicks = [];
+    if(mode == false){
+      mode = false;
+      $('#strict').removeClass('btn btn-success');
+      $('#strict').addClass('btn btn-warning');
+    }
+    if(mode == true){
+      mode = true;
+      $('#strict').removeClass('btn btn-warning');
+      $('#strict').addClass('btn btn-success');
+    }
+    $('h4').text('Ready?');
+    removeClasses();
+  }
+  // turn game on and off toggle button  
+  $('#onoff').click(function() {
+    $(this).toggleClass('btn-toggle-on');
+    //start game button 
+    if ($('#onoff').toggleClass() == 'btn btn-toggle') {
+      reset();
+    }
+    if ($('#onoff').toggleClass() != 'btn btn-toggle') {
+      $('#start').click(function() {
+        $('#start').addClass('animated rotateIn');
+        setTimeout(randomSequence, 500);
+        $('h4').text("Let's play!");
+      });
+      $('#start').mouseup(function() {
+        $('#start').removeClass('animated rotateIn');
+      });
+      //enable strict mode  
+      $('#strict').click(function() {
+        if(mode == true){
+          mode = false;
+          $('#strict').addClass('animated rotateIn');
+          $('#strict').removeClass('btn btn-success');
+          $('#strict').addClass('btn btn-warning');
+        }
+        else {
+          mode = true;
+        $('#strict').addClass('animated rotateIn');
+        $('#strict').removeClass('btn btn-warning');
+        $('#strict').addClass('btn btn-success');
+        }
+      });
+      $('#strict').mouseup(function() {
+        $('#strict').removeClass('animated rotateIn');
+      });
+      //colored buttons  
+      $('#green').click(function() {
+        greenButton();
+      });
+      $('#red').click(function() {
+        redButton();
+      });
+      $('#yellow').click(function() {
+        yellowButton();
+      });
+      $('#blue').click(function() {
+        blueButton();
+      });
+    }
+  });
+  $('#reset').click(function() {
+    reset();
+  });
+});
+
+    </script>
+
+    </html>

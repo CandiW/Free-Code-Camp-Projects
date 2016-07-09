@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+
+<html>
+
+<style>
+
+body {
+  text-align: center;
+  background: #242424;
+  font-family: 'Signika', sans-serif;
+}
+h1 {
+  color: #05f008;
+}
+h2 {
+  color: #f703f9;
+}
+.gray-box {
+  font-family: 'Signika', sans-serif;
+  font-size: 25px;
+  margin: 0 auto;
+  background: #757576;
+  min-width: 300px;
+  max-width: 700px;
+  min-height: 500px;
+  max-height: 2500px;
+  padding: 10px;
+  border-style: solid;
+  border-width: 5px;
+  border-color: #032ffb;
+  border-radius: 5px;
+}
+input {
+  margin: 20px;
+}
+button {
+  margin: 0px 0px 15px 0px;
+  color: #032ffb;
+}
+img {
+  width: 100px;
+  height: 90px;
+}
+#display {
+  display: inline;
+}
+i {
+  margin: 15px;
+}
+
+</style>
+
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+<link href='https://fonts.googleapis.com/css?family=Signika' rel='stylesheet' type='text/css'>
+
+</head>
+
+<body>
+  <h1 class='text-center'>Free Code Camp</h1>
+  <h2 class='text-center'>Twitch.tv JSON Api</h2>
+  <div class='container gray-box'>
+    <button id='search'><icon class="fa fa-search"></icon></button>
+    <input></input>
+  <div>
+    <button id='all' class='btn btn-default'><icon class="fa fa-television"></icon> All
+    </button>
+  <button id='online' class='btn btn-default'><icon class="fa fa-toggle-on"></icon> Online
+    </button>
+    <button id='offline' class='btn btn-default'><icon class="fa fa-toggle-off"></icon> Offline
+    </button>
+    <div>
+      <h5 id='errorMsg'></h5>
+      <div id='display' class='row'></div>
+      <div id='display1' class='row'></div>
+        <div id='display2' class='row'></div>
+      <div id='display3' class='row'></div>
+        <div id='display4' class='row'></div>
+      <div id='display5' class='row'></div>
+        <div id='display6' class='row'></div>
+      <div id='display7' class='row'></div>
+        <div id='display8' class='row'></div>
+      <div id='display9' class='row'></div>
+        <div id='display10' class='row'></div>
+    </div>
+  </div>
+  </div>
+</body>
+
+<script>
+
+$(document).ready(function() {
+  var users = ["freecodecamp", "storbeck", "terakilobyte", "habathcx", "RobotCaleb", "MedryBW", "thomasballinger", "noobs2ninjas", "beohoff", "brunofin", "comster404"];
+  var stream;
+  var TwitchApi = function(user) {
+    this.user = users;
+    this.requests = $.getJSON('https://api.twitch.tv/kraken/channels/' + user, function(data) {
+      this.requests2 = $.getJSON('https://api.twitch.tv/kraken/streams/' + user, function(result) {
+        $('display').html(JSON.stringify(data));
+        var displayName = data.display_name;
+        var link = data.url;
+        var logo = data.logo;
+        var status = data.status;
+        stream = result.stream;
+        switch (user) {
+          case users[0]:
+            $('<img src=' + logo + '></img>').appendTo($('#display'));
+            $('<i></i>').attr('id', 'icon').appendTo($('#display'));
+            $('<a href="' + link + '">' + displayName + '</a>').appendTo($('#display'));
+            if (stream != null) {
+              $('#icon').addClass('fa fa-check-circle').css('color', 'green');
+              $('<h4>' + status + '</h4>').appendTo($('#display'));
+            } else {
+              $('#icon').addClass('fa fa-times-circle').css('color', 'red');
+            }
+            break;
+          case users[1]:
+            $('<img src=' + logo + '></img>').appendTo($('#display1'));
+            $('<i></i>').attr('id', 'icon1').appendTo($('#display1'));
+            $('<a href="' + link + '">' + displayName + '</a>').appendTo($('#display1'));
+            if (stream != null) {
+              $('#icon1').addClass('fa fa-check-circle').css('color', 'green');
+              $('<h4>' + status + '</h4>').appendTo($('#display1'));
+            } else {
+              $('#icon1').addClass('fa fa-times-circle').css('color', 'red');
+            }
+            break;
+          case users[2]:
+            $('<img src=' + logo + '></img>').attr('id', 'img2').appendTo($('#display2'));
+            $('<i></i>').attr('id', 'icon2').appendTo($('#display2'));
+            $('<a href="' + link + '">' + displayName + '</a>').appendTo($('#display2'));
+            if (stream != null) {
+              $('#icon2').addClass('fa fa-check-circle').css('color', 'green');
+              $('<h4>' + status + '</h4>').appendTo($('#display2'));
+            } else {
+              $('#icon2').addClass('fa fa-times-circle').css('color', 'red');
+            }
+            if (logo == null) {
+              var url = 'http://gdurl.com/pQTO';
+              $('#img2').attr('src', url);
+            } else {
+              logo = data.logo;
+            }
+            break;
+          case users[3]:
+            $('<img src=' + logo + '></img>').appendTo($('#display3'));
+            $('<i></i>').attr('id', 'icon3').appendTo($('#display3'));
+            $('<a href="' + link + '">' + displayName + '</a>').appendTo($('#display3'));
+            if (stream != null) {
+              $('#icon3').addClass('fa fa-check-circle').css('color', 'green');
+              $('<h4>' + status + '</h4>').appendTo($('#display3'));
+            } else {
+              $('#icon3').addClass('fa fa-times-circle').css('color', 'red');
+            }
+            break;
+          case users[4]:
+            $('<img src=' + logo + '></img>').appendTo($('#display4'));
+            $('<i></i>').attr('id', 'icon4').appendTo($('#display4'));
+            $('<a href="' + link + '">' + displayName + '</a>').appendTo($('#display4'));
+            if (stream != null) {
+              $('#icon4').addClass('fa fa-check-circle').css('color', 'green');
+              $('<h4>' + status + '</h4>').appendTo($('#display4'));
+            } else {
+              $('#icon4').addClass('fa fa-times-circle').css('color', 'red');
+            }
+            break;
+          case users[5]:
+            $('<img src=' + logo + '></img>').appendTo($('#display5'));
+            $('<i></i>').attr('id', 'icon5').appendTo($('#display5'));
+            $('<a href="' + link + '">' + displayName + '</a>').appendTo($('#display5'));
+            if (stream != null) {
+              $('#icon5').addClass('fa fa-check-circle').css('color', 'green');
+              $('<h4>' + status + '</h4>').appendTo($('#display5'));
+            } else {
+              $('#icon5').addClass('fa fa-times-circle').css('color', 'red');
+            }
+            break;
+          case users[6]:
+            $('<img src=' + logo + '></img>').attr('id', 'img6').appendTo($('#display6'));
+            $('<i></i>').attr('id', 'icon6').appendTo($('#display6'));
+            $('<a href="' + link + '">' + displayName + '</a>').appendTo($('#display6'));
+            if (stream != null) {
+              $('#icon6').addClass('fa fa-check-circle').css('color', 'green');
+              $('<h4>' + status + '</h4>').appendTo($('#display6'));
+            } else {
+              $('#icon6').addClass('fa fa-times-circle').css('color', 'red');
+            }
+            if (logo == null) {
+              var url = 'http://gdurl.com/pQTO';
+              $('#img6').attr('src', url);
+            } else {
+              logo = data.logo;
+            }
+            break;
+          case users[7]:
+            $('<img src=' + logo + '></img>').appendTo($('#display7'));
+            $('<i></i>').attr('id', 'icon7').appendTo($('#display7'));
+            $('<a href="' + link + '">' + displayName + '</a>').appendTo($('#display7'));
+            if (stream != null) {
+              $('#icon7').addClass('fa fa-check-circle').css('color', 'green');
+              $('<h4>' + status + '</h4>').appendTo($('#display7'));
+            } else {
+              $('#icon7').addClass('fa fa-times-circle').css('color', 'red');
+            }
+            break;
+          case users[8]:
+            $('<img src=' + logo + '></img>').attr('id', 'img8').appendTo($('#display8'));
+            $('<i></i>').attr('id', 'icon8').appendTo($('#display8'));
+            $('<a href="' + link + '">' + displayName + '</a>').appendTo($('#display8'));
+            if (stream != null) {
+              $('#icon8').addClass('fa fa-check-circle').css('color', 'green');
+              $('<h4>' + status + '</h4>').appendTo($('#display8'));
+            } else {
+              $('#icon8').addClass('fa fa-times-circle').css('color', 'red');
+            }
+            if (logo == null) {
+              var url = 'http://gdurl.com/pQTO';
+              $('#img8').attr('src', url);
+            } else {
+              logo = data.logo;
+            }
+            break;
+            case users[9]:
+            $('<img src=' + logo + '></img>').attr('id', 'img9').appendTo($('#display9'));
+            $('<i></i>').attr('id', 'icon9').appendTo($('#display9'));
+            $('<a href="' + link + '">' + displayName + '</a>').appendTo($('#display9'));
+            if (stream != null) {
+              $('#icon9').addClass('fa fa-check-circle').css('color', 'green');
+              $('<h4>' + status + '</h4>').appendTo($('#display9'));
+            } else {
+              $('#icon9').addClass('fa fa-times-circle').css('color', 'red');
+            }
+            break;
+            case users[10]:
+            $('<img src=' + logo + '></img>').attr('id', 'img10').appendTo($('#display10'));
+            $('<i></i>').attr('id', 'icon10').appendTo($('#display10'));
+            $('<a href="' + link + '">' + displayName + '</a>').appendTo($('#display10'));
+            if (stream != null) {
+              $('#icon10').addClass('fa fa-check-circle').css('color', 'green');
+              $('<h4>' + status + '</h4>').appendTo($('#display10'));
+            } else {
+              $('#icon10').addClass('fa fa-times-circle').css('color', 'red');
+            }
+            break;
+        }
+      });
+    });
+  }
+  $('#search').click(function() {
+      var value = $('input').val();
+      var searchValue = value.toLowerCase();
+      if(users.indexOf(searchValue) == 0){
+        $('#display').show();
+        $('#display1, #display2, #display3, #display4, #display5, #display6, #display7, #display8, #display9, #display10').hide();
+        $('h5').text('');
+      }
+    if(users.indexOf(searchValue) == 1){
+        $('#display1').show();
+        $('#display, #display2, #display3, #display4, #display5, #display6, #display7, #display8, #display9, #display10').hide();
+      $('h5').text('');
+      }
+    if(users.indexOf(searchValue) == 2){
+        $('#display2').show();
+        $('#display, #display1, #display3, #display4, #display5, #display6, #display7, #display8, #display9, #display10').hide();
+      $('h5').text('');
+      }
+    if(users.indexOf(searchValue) == 3){
+        $('#display3').show();
+        $('#display, #display1, #display2, #display4, #display5, #display6, #display7, #display8, #display9, #display10').hide();
+      $('h5').text('');
+      }
+    if(users.indexOf(searchValue) == 4){
+        $('#display4').show();
+        $('#display, #display1, #display2, #display3, #display5, #display6, #display7, #display8, #display9, #display10').hide();
+      $('h5').text('');
+      }
+    if(users.indexOf(searchValue) == 5){
+        $('#display5').show();
+        $('#display, #display2, #display3, #display4, #display1, #display6, #display7, #display8, #display9, #display10').hide();
+      $('h5').text('');
+      }
+    if(users.indexOf(searchValue) == 6){
+        $('#display6').show();
+        $('#display1, #display2, #display3, #display4, #display5, #display, #display7, #display8, #display9, #display10').hide();
+      $('h5').text('');
+      }
+    if(users.indexOf(searchValue) == 7){
+        $('#display7').show();
+        $('#display1, #display2, #display3, #display4, #display5, #display6, #display, #display8, #display9, #display10').hide();
+      $('h5').text('');
+      }
+    if(users.indexOf(searchValue) == 8){
+        $('#display8').show();
+        $('#display1, #display2, #display3, #display4, #display5, #display6, #display7, #display, #display9, #display10').hide();
+      $('h5').text('');
+      }
+    if(users.indexOf(searchValue) == 9){
+        $('#display9').show();
+      $('#display9').text('Channel '+searchValue+' is no longer available.');
+        $('#display1, #display2, #display3, #display4, #display5, #display6, #display7, #display, #display8, #display10').hide();
+      $('h5').text('');
+      }
+    if(users.indexOf(searchValue) == 10){
+        $('#display10').show();
+      $('#display10').text('Channel '+searchValue+' is no longer available.');
+        $('#display1, #display2, #display3, #display4, #display5, #display6, #display7, #display, #display9, #display8').hide();
+      $('h5').text('');
+      }
+    if(users.indexOf(searchValue) == -1){
+      $('#errorMsg').text('Channel '+searchValue+' is not found.')
+      $('#display,#display1, #display2, #display3, #display4, #display5, #display6, #display7, #display9, #display8, #display10').hide();
+    }
+  });
+
+  function all() {
+    var a = new TwitchApi(users[0]);
+    var b = new TwitchApi(users[1]);
+    var c = new TwitchApi(users[2]);
+    var d = new TwitchApi(users[3]);
+    var e = new TwitchApi(users[4]);
+    var f = new TwitchApi(users[5]);
+    var g = new TwitchApi(users[6]);
+    var h = new TwitchApi(users[7]);
+    var i = new TwitchApi(users[8]);
+    var j = new TwitchApi(users[9]);
+    var k = new TwitchApi(users[10]);
+  }
+  all();
+  
+  $('#all').on('click', function() {
+    $('h5').text('');
+ $('#display,#display1,#display2,#display3,#display4,#display5,#display6,#display7,#display8,#display9,#display10').show();
+  });
+  $('input').keypress(function(event){
+    if(event.which == 13){
+      $('#search').click();
+    }
+  });
+  $('#online').click(function(){
+    if($('#icon').css('color') == 'green'){ $('#display').show(); } else{ $('#display').hide(); }
+    if($('#icon1').css('color') == 'green'){ $('#display1').show(); } else{ $('#display1').hide(); }
+    if($('#icon2').css('color') == 'green'){ $('#display2').show(); } else{ $('#display2').hide(); }
+    if($('#icon3').css('color') == 'green'){ $('#display3').show(); } else{ $('#display3').hide(); }
+    if($('#icon4').css('color') == 'green'){ $('#display4').show(); } else{ $('#display4').hide(); }
+    if($('#icon5').css('color') == 'green'){ $('#display5').show(); } else{ $('#display5').hide(); }
+    if($('#icon6').css('color') == 'green'){ $('#display6').show(); } else{ $('#display6').hide(); }
+    if($('#icon7').css('color') == 'green'){ $('#display7').show(); } else{ $('#display7').hide();}
+    if($('#icon8').css('color') == 'green'){ $('#display8').show(); } else{ $('#display8').hide();}
+    if($('#icon9').css('color') == 'green'){ $('#display9').show(); } else{ $('#display9').hide();}
+    if($('#icon10').css('color') == 'green'){ $('#display10').show(); } else{ $('#display10').hide();}
+    $('h5').text('');
+  });
+  
+  $('#offline').click(function(){
+    if($('#icon').css('color') == 'red'){ $('#display').hide(); } else{ $('#display').show(); }
+    if($('#icon1').css('color') == 'red'){ $('#display1').hide(); } else{ $('#display1').show(); }
+    if($('#icon2').css('color') == 'red'){ $('#display2').hide(); } else{ $('#display2').show(); }
+    if($('#icon3').css('color') == 'red'){ $('#display3').hide(); } else{ $('#display3').show(); }
+    if($('#icon4').css('color') == 'red'){ $('#display4').hide(); } else{ $('#display4').show(); }
+    if($('#icon5').css('color') == 'red'){ $('#display5').hide(); } else{ $('#display5').show(); }
+    if($('#icon6').css('color') == 'red'){ $('#display6').hide(); } else{ $('#display6').show(); }
+    if($('#icon7').css('color') == 'red'){ $('#display7').hide(); } else{ $('#display7').show(); }
+    if($('#icon8').css('color') == 'red'){ $('#display8').hide(); } else{ $('#display8').show(); }
+    if($('#icon9').css('color') == 'red'){ $('#display9').hide(); } else{ $('#display9').show(); }
+    if($('#icon10').css('color') == 'red'){ $('#display10').hide(); } else{ $('#display10').show(); }
+    $('h5').text('');
+  });
+});
+
+</script>
+
+</html>

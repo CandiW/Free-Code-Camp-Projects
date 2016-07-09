@@ -1,0 +1,734 @@
+<!DOCTYPE html>
+<html>
+<style>
+
+body {
+  background: #561050;
+  font-family: 'Amatic SC', cursive;
+}
+h1 {
+  color: #E9B5D2;
+  font-size: 60px;
+}
+h2 {
+  color: #E9B5D2;
+  font-size: 40px;
+}
+h4{
+  color: #E9B5D2;
+  font-size: 30px;
+}
+.btn {
+  color: #561050;
+  font-size: 30px;
+  margin: 5px;
+}
+table {
+  margin-top: 50px;
+}
+td {
+  font-size: 110px;
+  margin-top: 50px;
+  height: 150px;
+  width: 150px;
+  margin: 5px;
+}
+.dark-box {
+  color: #E9B5D2;
+  background: #35013F;
+}
+.light-box {
+  color: #35013F;
+  background: #E9B5D2;
+}
+
+    </style>
+<head>
+    <link href='https://fonts.googleapis.com/css?family=Amatic+SC' rel='stylesheet' type='text/css'>
+</head>
+<body class='text-center'>
+  <h1>Free Code Camp</h1>
+  <h2>Tic-Tac-Toe Game</h2>
+  <h4>Choose: </h4>
+  <button id='x'class='btn btn-info btn-lg'>X</button>
+  <button id='o' class='btn btn-info btn-lg'>O</button>
+  <table align='center'>
+    <tr>
+  <td id='box1' class="dark-box"></td>
+  <td id='box2' class="light-box"></td>
+  <td id='box3' class="dark-box"></td>
+    </tr>
+    <tr>
+  <td id='box4' class="light-box"></td>
+  <td id='box5' class="dark-box"></td>
+  <td id='box6' class="light-box"></td>
+    </tr>
+    <tr>
+  <td id='box7' class="dark-box"></td>
+  <td id='box8' class="light-box"></td>
+  <td id='box9' class="dark-box"></td>
+    </tr>
+  </table>
+    </body>
+
+
+<script>
+
+$(document).ready(function() {
+  $('h1').addClass('animated fadeInLeft');
+  $('h2').addClass('animated fadeInRight');
+  $('h4').addClass('animated bounce');
+  var user;
+  var computer;
+  var moves = 0;
+  var turn = 1;
+  var board = [$('#box1'), $('#box2'), $('#box3'), $('#box4'), $('#box5'), $('#box6'), $('#box7'), $('#box8'), $('#box9')];
+  var box1 = document.getElementById('box1').innerHTML;
+  var box2 = document.getElementById('box2').innerHTML;
+  var box3 = document.getElementById('box3').innerHTML;
+  var box4 = document.getElementById('box4').innerHTML;
+  var box5 = document.getElementById('box5').innerHTML;
+  var box6 = document.getElementById('box6').innerHTML;
+  var box7 = document.getElementById('box7').innerHTML;
+  var box8 = document.getElementById('box8').innerHTML;
+  var box9 = document.getElementById('box9').innerHTML;
+
+  $('#x').click(function() {
+    user = 'x';
+    computer = 'o';
+    turn = 1;
+    $('h4').text('You are playing "X".');
+  });
+  $('#o').click(function() {
+    user = 'o';
+    computer = 'x';
+    turn = 1;
+    $('h4').text('You are playing "O".');
+  });
+  if (user != 'x' || user != 'o') {
+    user = '';
+    computer = '';
+    moves = 0;
+    turn = 1;
+  }
+
+  function runComputer() {
+    //for the win!
+    if (box1 == computer && box2 == computer && box3 == '' && turn == 0) {
+      box3 += computer;
+      $('#box3').append(box3);
+      $('#box3').addClass('animated flipInX');
+      moves++;
+      turn = 1;
+    }
+    if (box2 == computer && box3 == computer && box1 == '' && turn == 0) {
+      box1 += computer;
+      $('#box1').append(box1);
+      $('#box1').addClass('animated flipInX');
+      moves++;
+      turn = 1;
+    }
+    if (box1 == computer && box3 == computer && box2 == '' && turn == 0) {
+      box2 += computer;
+      $('#box2').append(box2);
+      $('#box2').addClass('animated flipInX');
+      moves++;
+      turn = 1;
+    }
+    if (box4 == computer && box5 == computer && box6 == '' && turn == 0) {
+      box6 += computer;
+      $('#box6').append(box6);
+      $('#box6').addClass('animated flipInX');
+      moves++;
+      turn = 1;
+    }
+    if (box5 == computer && box6 == computer && box4 == '' && turn == 0) {
+      box4 += computer;
+      $('#box4').append(box4);
+      $('#box4').addClass('animated flipInX');
+      moves++;
+      turn = 1;
+    }
+    if (box4 == computer && box6 == computer && box5 == '' && turn == 0) {
+      box5 += computer;
+      $('#box5').append(box5);
+      $('#box5').addClass('animated flipInX');
+      moves++;
+      turn = 1;
+    }
+    if (box7 == computer && box8 == computer && box9 == '' && turn == 0) {
+      box9 += computer;
+      $('#box9').append(box9);
+      $('#box9').addClass('animated flipInX');
+      moves++;
+      turn = 1;
+    }
+    if (box7 == computer && box9 == computer && box8 == '' && turn == 0) {
+      box8 += computer;
+      $('#box8').append(box8);
+      $('#box8').addClass('animated flipInX');
+      moves++;
+      turn = 1;
+    }
+    if (box8 == computer && box9 == computer && box7 == '' && turn == 0) {
+      box7 += computer;
+      $('#box7').append(box7);
+      $('#box7').addClass('animated flipInX');
+      moves++;
+      turn = 1;
+    }
+    if (box1 == computer && box5 == computer && box9 == '' && turn == 0) {
+      box9 += computer;
+      $('#box9').append(box9);
+      $('#box9').addClass('animated flipInX');
+      moves++;
+      turn = 1;
+    }
+    if (box5 == computer && box9 == computer && box1 == '' && turn == 0) {
+      box1 += computer;
+      $('#box1').append(box1);
+      $('#box1').addClass('animated flipInX');
+      moves++;
+      turn = 1;
+    }
+    if (box1 == computer && box9 == computer && box5 == '' && turn == 0) {
+      box5 += computer;
+      $('#box5').append(box5);
+      $('#box5').addClass('animated flipInX');
+      moves++;
+      turn = 1;
+    }
+    if (box3 == computer && box5 == computer && box7 == '' && turn == 0) {
+      box7 += computer;
+      $('#box7').append(box7);
+      $('#box7').addClass('animated flipInX');
+      moves++;
+      turn = 1;
+    }
+    if (box3 == computer && box7 == computer && box5 == '' && turn == 0) {
+      box5 += computer;
+      $('#box5').append(box5);
+      $('#box5').addClass('animated flipInX');
+      moves++;
+      turn = 1;
+    }
+    if (box5 == computer && box7 == computer && box3 == '' && turn == 0) {
+      box3 += computer;
+      $('#box3').append(box3);
+      $('#box3').addClass('animated flipInX');
+      moves++;
+      turn = 1;
+    }
+    if (box1 == computer && box4 == computer && box7 == '' && turn == 0) {
+      box7 += computer;
+      $('#box7').append(box7);
+      $('#box7').addClass('animated flipInX');
+      moves++;
+      turn = 1;
+    }
+    if (box1 == computer && box7 == computer && box4 == '' && turn == 0) {
+      box4 += computer;
+      $('#box4').append(box4);
+      $('#box4').addClass('animated flipInX');
+      moves++;
+      turn = 1;
+    }
+    if (box4 == computer && box7 == computer && box1 == '' && turn == 0) {
+      box1 += computer;
+      $('#box1').append(box1);
+      $('#box1').addClass('animated flipInX');
+      moves++;
+      turn = 1;
+    }
+    if (box2 == computer && box5 == computer && box8 == '' && turn == 0) {
+      box8 += computer;
+      $('#box8').append(box8);
+      $('#box8').addClass('animated flipInX');
+      moves++;
+      turn = 1;
+    }
+    if (box2 == computer && box8 == computer && box5 == '' && turn == 0) {
+      box5 += computer;
+      $('#box5').append(box5);
+      $('#box5').addClass('animated flipInX');
+      moves++;
+      turn = 1;
+    }
+    if (box5 == computer && box8 == computer && box2 == '' && turn == 0) {
+      box2 += computer;
+      $('#box2').append(box2);
+      $('#box2').addClass('animated flipInX');
+      moves++;
+      turn = 1;
+    }
+    if (box3 == computer && box6 == computer && box9 == '' && turn == 0) {
+      box9 += computer;
+      $('#box9').append(box9);
+      $('#box9').addClass('animated flipInX');
+      moves++;
+      turn = 1;
+    }
+    if (box3 == computer && box9 == computer && box6 == '' && turn == 0) {
+      box6 += computer;
+      $('#box6').append(box6);
+      $('#box6').addClass('animated flipInX');
+      moves++;
+      turn = 1;
+    }
+    if (box6 == computer && box9 == computer && box3 == '' && turn == 0) {
+      box3 += computer;
+      $('#box3').append(box3);
+      $('#box3').addClass('animated flipInX');
+      moves++;
+      turn = 1;
+    }
+
+    //block user
+    if (box1 == user && box2 == user && box3 == '' && turn == 0) {
+      box3 += computer;
+      $('#box3').append(box3);
+      $('#box3').addClass('animated flipInX');
+      moves++;
+      turn = 1;
+    }
+    if (box2 == user && box3 == user && box1 == '' && turn == 0) {
+      box1 += computer;
+      $('#box1').append(box1);
+      $('#box1').addClass('animated flipInX');
+      moves++;
+      turn = 1;
+    }
+    if (box1 == user && box3 == user && box2 == '' && turn == 0) {
+      box2 += computer;
+      $('#box2').append(box2);
+      $('#box2').addClass('animated flipInX');
+      moves++;
+      turn = 1;
+    }
+    if (box4 == user && box5 == user && box6 == '' && turn == 0) {
+      box6 += computer;
+      $('#box6').append(box6);
+      $('#box6').addClass('animated flipInX');
+      moves++;
+      turn = 1;
+    }
+    if (box5 == user && box6 == user && box4 == '' && turn == 0) {
+      box4 += computer;
+      $('#box4').append(box4);
+      $('#box4').addClass('animated flipInX');
+      moves++;
+      turn = 1;
+    }
+    if (box4 == user && box6 == user && box5 == '' && turn == 0) {
+      box5 += computer;
+      $('#box5').append(box5);
+      $('#box5').addClass('animated flipInX');
+      moves++;
+      turn = 1;
+    }
+    if (box7 == user && box8 == user && box9 == '' && turn == 0) {
+      box9 += computer;
+      $('#box9').append(box9);
+      $('#box9').addClass('animated flipInX');
+      moves++;
+      turn = 1;
+    }
+    if (box7 == user && box9 == user && box8 == '' && turn == 0) {
+      box8 += computer;
+      $('#box8').append(box8);
+      $('#box8').addClass('animated flipInX');
+      moves++;
+      turn = 1;
+    }
+    if (box9 == user && box9 == user && box7 == '' && turn == 0) {
+      box7 += computer;
+      $('#box7').append(box7);
+      $('#box7').addClass('animated flipInX');
+      moves++;
+      turn = 1;
+    }
+    if (box1 == user && box5 == user && box9 == '' && turn == 0) {
+      box9 += computer;
+      $('#box9').append(box9);
+      $('#box9').addClass('animated flipInX');
+      moves++;
+      turn = 1;
+    }
+    if (box5 == user && box9 == user && box1 == '' && turn == 0) {
+      box1 += computer;
+      $('#box1').append(box1);
+      $('#box1').addClass('animated flipInX');
+      moves++;
+      turn = 1;
+    }
+    if (box1 == user && box9 == user && box5 == '' && turn == 0) {
+      box5 += computer;
+      $('#box5').append(box5);
+      $('#box5').addClass('animated flipInX');
+      moves++;
+      turn = 1;
+    }
+    if (box3 == user && box5 == user && box7 == '' && turn == 0) {
+      box7 += computer;
+      $('#box7').append(box7);
+      $('#box7').addClass('animated flipInX');
+      moves++;
+      turn = 1;
+    }
+    if (box3 == user && box7 == user && box5 == '' && turn == 0) {
+      box5 += computer;
+      $('#box5').append(box5);
+      $('#box5').addClass('animated flipInX');
+      moves++;
+      turn = 1;
+    }
+    if (box5 == user && box7 == user && box3 == '' && turn == 0) {
+      box3 += computer;
+      $('#box3').append(box3);
+      $('#box3').addClass('animated flipInX');
+      moves++;
+      turn = 1;
+    }
+    if (box1 == user && box4 == user && box7 == '' && turn == 0) {
+      box7 += computer;
+      $('#box7').append(box7);
+      $('#box7').addClass('animated flipInX');
+      moves++;
+      turn = 1;
+    }
+    if (box1 == user && box7 == user && box4 == '' && turn == 0) {
+      box4 += computer;
+      $('#box4').append(box4);
+      $('#box4').addClass('animated flipInX');
+      moves++;
+      turn = 1;
+    }
+    if (box4 == user && box7 == user && box1 == '' && turn == 0) {
+      box1 += computer;
+      $('#box1').append(box1);
+      $('#box1').addClass('animated flipInX');
+      moves++;
+      turn = 1;
+    }
+    if (box2 == user && box5 == user && box8 == '' && turn == 0) {
+      box8 += computer;
+      $('#box8').append(box8);
+      $('#box8').addClass('animated flipInX');
+      moves++;
+      turn = 1;
+    }
+    if (box2 == user && box8 == user && box5 == '' && turn == 0) {
+      box5 += computer;
+      $('#box5').append(box5);
+      $('#box5').addClass('animated flipInX');
+      moves++;
+      turn = 1;
+    }
+    if (box5 == user && box8 == user && box2 == '' && turn == 0) {
+      box2 += computer;
+      $('#box2').append(box2);
+      $('#box2').addClass('animated flipInX');
+      moves++;
+      turn = 1;
+    }
+    if (box3 == user && box6 == user && box9 == '' && turn == 0) {
+      box9 += computer;
+      $('#box9').append(box9);
+      $('#box9').addClass('animated flipInX');
+      moves++;
+      turn = 1;
+    }
+    if (box3 == user && box9 == user && box6 == '' && turn == 0) {
+      box6 += computer;
+      $('#box6').append(box6);
+      $('#box6').addClass('animated flipInX');
+      moves++;
+      turn = 1;
+    }
+    if (box6 == user && box9 == user && box3 == '' && turn == 0) {
+      box3 += computer;
+      $('#box3').append(box3);
+      $('#box3').addClass('animated flipInX');
+      moves++;
+      turn = 1;
+    } else {
+      AIPlayer();
+    }
+  }
+
+  function AIPlayer() {
+    if (box1 == '' && turn == 0) {
+      box1 += computer;
+      $('#box1').append(box1);
+      $('#box1').addClass('animated flipInX');
+      moves++;
+      turn = 1;
+    }
+    if (box2 == '' && turn == 0) {
+      box2 += computer;
+      $('#box2').append(box2);
+      $('#box2').addClass('animated flipInX');
+      moves++;
+      turn = 1;
+    }
+    if (box3 == '' && turn == 0) {
+      box3 += computer;
+      $('#box3').append(box3);
+      $('#box3').addClass('animated flipInX');
+      moves++;
+      turn = 1;
+    }
+    if (box4 == '' && turn == 0) {
+      box4 += computer;
+      $('#box4').append(box4);
+      $('#box4').addClass('animated flipInX');
+      moves++;
+      turn = 1;
+    }
+    if (box5 == '' && turn == 0) {
+      box5 += computer;
+      $('#box5').append(box5);
+      $('#box5').addClass('animated flipInX');
+      moves++;
+      turn = 1;
+    }
+    if (box6 == '' && turn == 0) {
+      box6 += computer;
+      $('#box6').append(box6);
+      $('#box6').addClass('animated flipInX');
+      moves++;
+      turn = 1;
+    }
+    if (box7 == '' && turn == 0) {
+      box7 += computer;
+      $('#box7').append(box7);
+      $('#box7').addClass('animated flipInX');
+      moves++;
+      turn = 1;
+    }
+    if (box8 == '' && turn == 0) {
+      box8 += computer;
+      $('#box8').append(box8);
+      $('#box8').addClass('animated flipInX');
+      moves++;
+      turn = 1;
+    }
+    if (box9 == '' && turn == 0) {
+      box9 += computer;
+      $('#box9').append(box9);
+      $('#box9').addClass('animated flipInX');
+      moves++;
+      turn = 1;
+    }
+  }
+
+  function reset() {
+    board.map(function(e) {
+      e.text('');
+      $('h4').text('Choose:');
+      user = '';
+      computer = '';
+      moves = 0;
+      turn = 1;
+      box1 = '';
+      box2 = '';
+      box3 = '';
+      box4 = '';
+      box5 = '';
+      box6 = '';
+      box7 = '';
+      box8 = '';
+      box9 = '';
+      $('#box1,#box2,#box3,#box4,#box5,#box6,#box7,#box8,#box9').removeClass('animated flipInX');
+    });
+  }
+
+  function checkWin() {
+    //check if x wins
+    if (board[0].text() == 'x' && board[1].text() == 'x' && board[2].text() == 'x') {
+      $('h4').text('X Wins!');
+      setTimeout(reset, 3000);
+    }
+    if (board[3].text() == 'x' && board[4].text() == 'x' && board[5].text() == 'x') {
+      $('h4').text('X Wins!');
+      setTimeout(reset, 3000);
+    }
+    if (board[6].text() == 'x' && board[7].text() == 'x' && board[8].text() == 'x') {
+      $('h4').text('X Wins!');
+      setTimeout(reset, 3000);
+    }
+    if (board[0].text() == 'x' && board[4].text() == 'x' && board[8].text() == 'x') {
+      $('h4').text('X Wins!');
+      setTimeout(reset, 3000);
+    }
+    if (board[2].text() == 'x' && board[4].text() == 'x' && board[6].text() == 'x') {
+      $('h4').text('X Wins!');
+      setTimeout(reset, 3000);
+    }
+    if (board[0].text() == 'x' && board[3].text() == 'x' && board[6].text() == 'x') {
+      $('h4').text('X Wins!');
+      setTimeout(reset, 3000);
+    }
+    if (board[1].text() == 'x' && board[4].text() == 'x' && board[7].text() == 'x') {
+      $('h4').text('X Wins!');
+      setTimeout(reset, 3000);
+    }
+    if (board[2].text() == 'x' && board[5].text() == 'x' && board[8].text() == 'x') {
+      $('h4').text('X Wins!');
+      setTimeout(reset, 3000);
+    }
+    //check if o wins
+    if (board[0].text() == 'o' && board[1].text() == 'o' && board[2].text() == 'o') {
+      $('h4').text('O Wins!');
+      setTimeout(reset, 3000);
+    }
+    if (board[3].text() == 'o' && board[4].text() == 'o' && board[5].text() == 'o') {
+      $('h4').text('O Wins!');
+      setTimeout(reset, 3000);
+    }
+    if (board[6].text() == 'o' && board[7].text() == 'o' && board[8].text() == 'o') {
+      $('h4').text('O Wins!');
+      setTimeout(reset, 3000);
+    }
+    if (board[0].text() == 'o' && board[4].text() == 'o' && board[8].text() == 'o') {
+      $('h4').text('O Wins!');
+      setTimeout(reset, 3000);
+    }
+    if (board[2].text() == 'o' && board[4].text() == 'o' && board[6].text() == 'o') {
+      $('h4').text('O Wins!');
+      setTimeout(reset, 3000);
+    }
+    if (board[0].text() == 'o' && board[3].text() == 'o' && board[6].text() == 'o') {
+      $('h4').text('O Wins!');
+      setTimeout(reset, 3000);
+    }
+    if (board[1].text() == 'o' && board[4].text() == 'o' && board[7].text() == 'o') {
+      $('h4').text('O Wins!');
+      setTimeout(reset, 3000);
+    }
+    if (board[2].text() == 'o' && board[5].text() == 'o' && board[8].text() == 'o') {
+      $('h4').text('O Wins!');
+      setTimeout(reset, 3000);
+    }
+  }
+
+  function draw() {
+    if (moves == 9) {
+      $('h4').text("It's a draw.");
+      setTimeout(reset, 3000);
+    }
+  }
+  //box click functions
+  $('#box1').click(function() {
+    if(box1 == '' && turn == 1){
+    box1 += user;
+    $('#box1').append(box1);
+    $('#box1').addClass('animated flipInX');
+    moves++;
+    turn = 0;
+    runComputer();
+    checkWin();
+    draw();
+    }
+  });
+  $('#box2').click(function() {
+    if(box2 == '' && turn == 1){
+    box2 += user;
+    $('#box2').append(box2);
+    $('#box2').addClass('animated flipInX');
+    moves++;
+    turn = 0;
+    runComputer();
+    checkWin();
+    draw();
+    }
+  });
+  $('#box3').click(function() {
+    if(box3 == '' && turn == 1){
+    box3 += user;
+    $('#box3').append(box3);
+    $('#box3').addClass('animated flipInX');
+    moves++;
+    turn = 0;
+    runComputer();
+    checkWin();
+    draw();
+    }
+  });
+  $('#box4').click(function() {
+    if(box4 == '' && turn == 1){
+    box4 += user;
+    $('#box4').append(box4);
+    $('#box4').addClass('animated flipInX');
+    moves++;
+    turn = 0;
+    runComputer();
+    checkWin();
+    draw();
+    }
+  });
+  $('#box5').click(function() {
+    if(box5 == '' && turn == 1){
+    box5 += user;
+    $('#box5').append(box5);
+    $('#box5').addClass('animated flipInX');
+    moves++;
+    turn = 0;
+    runComputer();
+    checkWin();
+    draw();
+    }
+  });
+  $('#box6').click(function() {
+    if(box6 == '' && turn == 1){
+    box6 += user;
+    $('#box6').append(box6);
+    $('#box6').addClass('animated flipInX');
+    moves++;
+    turn = 0;
+    runComputer();
+    checkWin();
+    draw();
+    }
+  });
+  $('#box7').click(function() {
+    if(box7 == '' && turn == 1){
+    box7 += user;
+    $('#box7').append(box7);
+    $('#box7').addClass('animated flipInX');
+    moves++;
+    turn = 0;
+    runComputer();
+    checkWin();
+    draw();
+    }
+  });
+  $('#box8').click(function() {
+    if(box8 == '' && turn == 1){
+    box8 += user;
+    $('#box8').append(box8);
+    $('#box8').addClass('animated flipInX');
+    moves++;
+    turn = 0;
+    runComputer();
+    checkWin();
+    draw();
+    }
+  });
+  $('#box9').click(function() {
+    if(box9 == '' && turn == 1){
+    box9 += user;
+    $('#box9').append(box9);
+    $('#box9').addClass('animated flipInX')
+    moves++;
+    turn = 0;
+    runComputer();
+    checkWin();
+    draw();
+    }
+  });
+});
+
+</script>
+
+    </html>

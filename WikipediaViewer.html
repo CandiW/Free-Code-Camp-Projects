@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+
+<style>
+
+body {
+  background-image: url('http://gdurl.com/hsZJ');
+  font-family: 'Domine', serif;
+}
+h1{
+  color: white;
+  margin: 45px;
+}
+h2 {
+  color: white;
+  margin: 45px;
+}
+input {
+  width: 200px;
+  height: 36px;
+  border-radius: 10px;
+}
+#entries {
+  color: white;
+  border-top: 45px;
+  border-style: solid;
+  border-color: rgba(0,0,0,.75);
+  background: rgba(0,0,0,.50);
+  margin: 50px;
+  font-size: 18px;
+}
+
+    </style>
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+<link href='https://fonts.googleapis.com/css?family=Domine' rel='stylesheet' type='text/css'>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+</head>
+<body class='text-center'>
+  <h1>Free Code Camp</h1>
+  <h2>Wikipedia Viewer</h2>
+<input type='text' placeholder='Search here...'></input>
+<button id='search' class='btn btn-default'><i class='fa fa-search'> Search</i></button>
+<button id='random' class='btn btn-default'><i class='fa fa-circle-thin'> Random</i></button>
+<div id='entries' class='container-fluid'>
+</div>
+</body>
+
+<script>
+
+
+$(document).ready(function(){
+  $('#entries').hide();
+  $('#search').click(function(){
+    function search(){
+      var value = $('input').val();
+    $('#entries').show();
+    $.getJSON("https://en.wikipedia.org/w/api.php?callback=?",
+        {
+          srsearch: value,
+          limit: 10,
+          action: "query",
+          list: "search",
+          format: "json"
+        },
+              function (data){
+      $('#entries').html('');
+     var entry = data.query.search;
+     entry.forEach(function(val,index){
+        var title = val.title;
+        var snippet = val.snippet;
+        var link = 'https://en.wikipedia.org/wiki/'+title;
+        $("<a href='"+link+"'target='_blank'>"+title+"</a>").appendTo('#entries');
+        $('<p>'+snippet+'</p>').appendTo('#entries');
+      });
+   });
+    }
+    search();
+    });
+  $('input').keypress(function(event){
+    if(event.which == 13){
+      $('#search').click();
+    }
+  });
+  $('input').keyup(function(){
+    $('#search').click();
+  });
+  $('#random').click(function(){
+    function randomArticle(){
+    $('#entries').show();
+    $.getJSON("https://en.wikipedia.org/w/api.php?action=query&list=random&format=json&rnnamespace=0&callback=?",
+      function(data){
+      $('#entries').html('');
+      var result=data.query.random;
+      result.forEach(function(val,index){
+        var title = val.title;
+        var snippet = "Click on the link above to read!";
+        var link = 'https://en.wikipedia.org/wiki/'+title;
+        $("<a href='"+link+"'target='_blank'>"+title+"</a>").appendTo('#entries');
+        $('<p>'+snippet+'</p>').appendTo('#entries');
+      });
+    });
+  }
+    randomArticle();
+  });
+});
+
+
+    </script>
+
+    </html>
