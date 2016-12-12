@@ -25,3 +25,6 @@ Tic-Tac-Toe Game:  http://codepen.io/CandiW/full/obYwMa
 
 Simon Game:  http://codepen.io/CandiW/full/GoNzKW
 
+--- For Data-Visualization Certificate ---
+
+See my projects for Data-Viz Certificate including React.js, SASS, D3 projects [here](https://github.com/CandiW/reactprojects).
